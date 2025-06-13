@@ -26,8 +26,6 @@ pip install pandas requests openpyxl
 ```bash
 python segment_excel.py data.xlsx
 ```
-
-
 You can customize column names with `--user-id-col`, `--event-col`, `--email-col`,
 and `--phone-col` if they differ from the defaults. If the specified user ID
 column is missing, the script falls back to the email column.
