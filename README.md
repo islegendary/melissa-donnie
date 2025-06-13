@@ -32,6 +32,3 @@ column is missing, the script falls back to the email column.
 Identifiers can be hashed with `--hash-id`, and phone numbers with
 `--hash-phone`. Use `--batch-size` to control how many events are sent in a
 single request.
-=======
-
-
