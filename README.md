@@ -1,6 +1,6 @@
 # melissa-donnie
 
-This project processes an Excel file, extracts columns, and submits track calls to the Segment.io endpoint.
+This project reads an Excel file and sends each row as a `Checked In` event to Segment.
 
 ## Usage
 
@@ -10,16 +10,16 @@ This project processes an Excel file, extracts columns, and submits track calls 
 pip install pandas requests openpyxl
 ```
 
-2. Prepare an Excel file (e.g., `data.xlsx`) with at least two columns:
+2. Prepare an Excel file (e.g., `data.xlsx`) with the following columns:
 
-   - `userId` – the unique identifier for the user. If you don't have a user ID,
-     include an `email` column instead and the script will use it as the
-     identifier.
+- `email`
+- `phone`
+- `club_name`
+- `club_location`
+- `membership_level`
+- `timestamp` (parseable date/time)
 
-   - `event` – the event name to track.
-   - Any additional columns will be included as properties in the Segment track payload.
-
-3. Set your Segment write key in the `SEGMENT_WRITE_KEY` environment variable or pass it with `--write-key`.
+3. Set your Segment write key in the `SEGMENT_WRITE_KEY` environment variable or edit `segment_excel.py` to include it.
 
 4. Run the script:
 
@@ -27,13 +27,4 @@ pip install pandas requests openpyxl
 python segment_excel.py data.xlsx
 ```
 
-
-You can customize column names with `--user-id-col`, `--event-col`, `--email-col`,
-and `--phone-col` if they differ from the defaults. If the specified user ID
-column is missing, the script falls back to the email column.
-Identifiers can be hashed with `--hash-id`, and phone numbers with
-`--hash-phone`. Use `--batch-size` to control how many events are sent in a
-single request.
-=======
-
-
+The script hashes the email to create the user identifier, cleans phone numbers and email addresses, and sends the remaining fields as properties. Each row's timestamp is used as the event timestamp in ISO 8601 format.
