@@ -5,6 +5,8 @@ import pandas as pd
 import requests
 from typing import Any, Dict, List
 
+
+
 def send_track(write_key: str, user_id: str, event: str, properties: Dict[str, Any]):
     """Send a track call to Segment."""
     url = "https://api.segment.io/v1/track"
@@ -15,7 +17,6 @@ def send_track(write_key: str, user_id: str, event: str, properties: Dict[str, A
     }
     response = requests.post(url, json=payload, auth=(write_key, ""))
     response.raise_for_status()
-
 
 def send_batch(write_key: str, batch: List[Dict[str, Any]]):
     """Send a batch of track calls to Segment."""
@@ -67,6 +68,7 @@ def process_excel(
 def parse_args():
     parser = argparse.ArgumentParser(description="Process Excel and send events to Segment")
     parser.add_argument("excel_file", help="Path to Excel file")
+
     parser.add_argument(
         "--user-id-col",
         default="userId",
@@ -115,6 +117,7 @@ if __name__ == "__main__":
     args = parse_args()
     if not args.write_key:
         raise SystemExit("Segment write key not provided. Set SEGMENT_WRITE_KEY env variable or use --write-key.")
+
     process_excel(
         args.excel_file,
         args.write_key,
