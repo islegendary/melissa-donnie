@@ -11,7 +11,9 @@ pip install pandas requests openpyxl
 ```
 
 2. Prepare an Excel file (e.g., `data.xlsx`) with at least two columns:
-   - `userId` – the unique identifier for the user.
+   - `userId` – the unique identifier for the user. If you don't have a user ID,
+     include an `email` column instead and the script will use it as the
+     identifier.
    - `event` – the event name to track.
    - Any additional columns will be included as properties in the Segment track payload.
 
@@ -23,4 +25,4 @@ pip install pandas requests openpyxl
 python segment_excel.py data.xlsx
 ```
 
-You can customize column names with `--user-id-col` and `--event-col` if they differ from the defaults.
+You can customize column names with `--user-id-col`, `--event-col`, and `--email-col` if they differ from the defaults. If the specified user ID column is missing, the script falls back to the email column.
